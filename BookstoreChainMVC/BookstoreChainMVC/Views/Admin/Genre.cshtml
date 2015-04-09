@@ -1,0 +1,33 @@
+﻿@model IEnumerable<BookstoreChain.Domain.Entities.Genre>
+
+@{
+    ViewBag.Title = "Genre";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Genre</h2>
+
+<p>
+    @Html.ActionLink("Create New Genre", "CreateGenre")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { item.GenreID }) |
+            @Html.ActionLink("Delete", "Delete", new { item.GenreID })
+        </td>
+    </tr>
+}
+
+</table>

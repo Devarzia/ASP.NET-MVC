@@ -1,0 +1,112 @@
+﻿@model IEnumerable<BookstoreChainMVC.Models.Genre>
+
+@{
+    ViewBag.Title = "Genre";
+}
+<h2>Genre</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model)
+{
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.ActionLink("Update", "UpdateGenre", new { id = item.GenreID }, htmlAttributes: new { @class = "updateGenre" }) |
+            @Html.ActionLink("Delete", "DeleteGenre", new { id = item.GenreID }, htmlAttributes: new { @class = "deleteGenre" })
+        </td>
+    </tr>
+}
+</table>
+<p id="addGenre">
+    @Html.ActionLink("Create New Genre", "AddGenre", new { id = 1 }, htmlAttributes: new { @class = "addGenre" })
+</p>
+<div id="genreContainer">
+
+</div>
+@section viewScripts
+{
+<script>
+$(function ()
+{
+    $("#addGenre").on("click", ".addGenre", function (event)
+    {
+        var url = this.href;
+        // $("#genreContainer").load(url);
+        $.ajax(
+            {
+                type: "GET",
+                url: url,
+                success: function (data)
+                {
+                    $("#genreContainer").empty();
+                    $(data).find("form").appendTo("#genreContainer");
+                },
+                error: function (xhr)
+                {
+                    $("#genreContainer").append("Request Did not Produce Result");
+                }
+            });
+
+        event.preventDefault();
+    });
+});
+$(function ()
+{
+    $(".table").on("click", ".updateGenre", function (event)
+    {
+        var url = this.href;
+        // $("#genreContainer").load(url);
+        $.ajax(
+            {
+                type: "GET",
+                url: url,
+                success: function (data)
+                {
+                    $("#genreContainer").empty();
+                    $(data).find("form").appendTo("#genreContainer");
+                },
+                error: function (xhr)
+                {
+                    $("#genreContainer").append("Request Did not Produce Result");
+                }
+            });
+
+        event.preventDefault();
+    });
+});
+
+$(function ()
+{
+    $(".table").on("click", ".deleteGenre", function (event)
+    {
+        var url = this.href;
+        // $("#genreContainer").load(url);
+        $.ajax(
+            {
+                type: "GET",
+                url: url,
+                success: function (data)
+                {
+                    $("#genreContainer").empty();
+                    $(data).find("form").appendTo("#genreContainer");
+                },
+                error: function (xhr)
+                {
+                    $("#genreContainer").append("Request Did not Produce Result");
+                }
+            });
+
+        event.preventDefault();
+    });
+});
+</script>
+}

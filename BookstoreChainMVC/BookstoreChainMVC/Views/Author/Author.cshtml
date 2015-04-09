@@ -1,0 +1,159 @@
+﻿@model IEnumerable<BookstoreChainMVC.Models.Author>
+
+@{
+    ViewBag.Title = "Author";
+}
+
+<h2>Author</h2>
+
+<table class="table" id="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Address)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.City)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.State)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PhoneNumber)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Address)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.City)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.State)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PhoneNumber)
+        </td>
+        <td>
+            @Ajax.ActionLink("Update", "UpdateAuthor", "Author", new AjaxOptions
+       {
+           UpdateTargetId = "authorContainer", // DOM element to update
+           InsertionMode = InsertionMode.Replace, // Replace the content of the element
+           HttpMethod = "GET" // HTTP Method
+       }) 
+
+        |
+
+            @Ajax.ActionLink("Delete", "DeleteAuthor", "Author", new AjaxOptions
+       {
+           UpdateTargetId = "authorContainer", // DOM element to update
+           InsertionMode = InsertionMode.Replace, // Replace the content of the element
+           HttpMethod = "GET" // HTTP Method
+       })
+
+            
+
+            @*@Html.ActionLink("Update", "UpdateAuthor", new { id = item.AuthorID }, htmlAttributes: new { @class = "updateAuthor" }) |
+            @Html.ActionLink("Delete", "DeleteAuthor", new { id = item.AuthorID  }, htmlAttributes: new { @class = "deleteAuthor"})*@
+        </td>
+    </tr>
+}
+</table>
+<p id="addAuthor">
+    @Ajax.ActionLink("Add Author", "AddAuthor", "Author", new AjaxOptions
+{
+    UpdateTargetId = "authorContainer", // DOM element to update
+    InsertionMode = InsertionMode.Replace, // Replace the content of the element
+    HttpMethod = "GET" // HTTP Method
+})
+    
+    @*@Html.ActionLink("Create New Author", "AddAuthor", new { id = 1 }, htmlAttributes: new { @class = "addAuthor" })*@
+</p>
+<div id="authorContainer">
+
+</div>
+@section viewScripts{
+    @Scripts.Render("~/scripts/jquery.unobtrusive-ajax.js")
+}
+@*<script>
+
+$(function ()
+{
+    $("#addAuthor").on("click", ".addAuthor", function (event)
+    {
+        var url = this.href;
+        // $("#authorContainer").load(url);
+        $.ajax(
+            {
+                type: "GET",
+                url: url,
+                success: function (data)
+                {
+                    $("#authorContainer").empty();
+                    $(data).find("form").appendTo("#authorContainer");
+                },
+                error: function (xhr)
+                {
+                    $("#authorContainer").append("Request Did not Produce Result");
+                }
+            });
+
+        event.preventDefault();
+    });
+});
+
+$(function ()
+{
+    $("#table").on("click", ".updateAuthor", function (event)
+    {
+    var url = this.href;
+    // $("#authorContainer").load(url);
+    $.ajax(
+        {
+            type: "GET",
+            url: url,
+            success: function (data)
+            {
+                $("#authorContainer").empty();
+                $(data).find("form").appendTo("#authorContainer");
+            }
+        });
+
+    event.preventDefault();
+    });
+});
+
+$(function ()
+{
+    $("#table").on("click", ".deleteAuthor", function (event)
+    {
+        var url = this.href;
+        // $("#bookContainer").load(url);
+        $.ajax(
+            {
+                type: "GET",
+                url: url,
+                success: function (data)
+                {
+                    $("#authorContainer").empty();
+                    $(data).find("#form").appendTo("#authorContainer");
+                },
+                error: function (xhr)
+                {
+                    $("#authorContainer").append("Request Did not Produce Result");
+                }
+            });
+
+        event.preventDefault();
+    });
+});
+</script>*@

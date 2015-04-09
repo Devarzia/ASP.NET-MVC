@@ -1,0 +1,109 @@
+﻿@model IEnumerable<BookstoreChain.Domain.Entities.Book>
+
+@{
+    ViewBag.Title = "Book:Admin";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<script src="~/Scripts/jquery-2.1.3.min.js"></script>
+<script src="~/Scripts/jquery-ui-1.11.3.min.js"></script>
+<link rel="stylesheet" href="~/Content/themes/ui-lightness/jquery-ui.ui-lightness.min.css" />
+@*<script>
+    $(document).ready(function () {
+        //
+        var url = "";
+
+        // alert dialog specs
+        $("#alertDialog").dialog({
+            autoOpen: false,
+            modal: true,
+            open: function (event, ui) {
+                $(".ui-dialog-titlebar-close").hide();
+            }
+        });
+
+        // Edit dialog specs
+        $("#editDialog").dialog({
+            title: "Create Book",
+            autoOpen: false,
+            modal: true,
+            open: function (event, ui) {
+                $(".ui.dialog-titlebar-close").hide();
+                $(this).load(url);
+            }
+        });
+
+        // If the tempdata message is not null, show alert dialog
+        if ("@TempData["message"]" != "") {
+            $("#alertDialog").dialog("open");
+        };
+
+        // Edit dialog open when create link is clicked
+        $(".create").on("click", function (event)
+        {
+            event.preventDefault(); // preventing the normal event to happen
+            url = $(this).attr("href");
+            $("#editDialog").dialog("open");
+        });
+
+        // Edit dialog open when edit link is clicked
+        $(".edit").on("click", function (event)
+        {
+            event.preventDefault(); // preventing the normal event to happen
+            url = $(this).attr("href");
+            $(".ui-dialog-title").html("Update Book");
+            $("#editDialog").dialog("open");
+        });
+    });
+</script>*@
+
+<h2>Book</h2>
+
+<!-- Div to hold alerts -->
+<div id="alertDialog" style="display:none">
+    <p>
+        @TempData["message"]!
+    </p>
+</div>
+
+<!-- Div to hold edit fields -->
+<div id="editDialog" style="display:none"></div>
+
+<!-- Div to hold -->
+
+<p>
+    @Html.ActionLink("Create New Book", "CreateBook", null, new { @class = "create" })
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Genre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AuthorName)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.ActionLink(item.Title, "EditBook", new { item.BookID })
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Genre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AuthorName)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "EditBook", new { id = item.BookID }, new { @class = "edit" }) |
+                @Html.ActionLink("Delete", "DeleteBook", new { id = item.BookID }, new { @class = "delete" })
+            </td>
+        </tr>
+    }
+
+</table>
